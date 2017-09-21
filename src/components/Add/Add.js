@@ -3,23 +3,32 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import './Add.css'
 
-export const Add = ({placeholder, onItemAdd}) => {
-
-    let tf;
-    
-    const onSubmit = (e) => {
-        e.preventDefault()
-        if (!tf.input.value) return
-        onItemAdd(tf.input.value)
-        tf.input.value = ''
+export class Add extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {value: ''}
     }
 
-    return (
-        <form
-            className='Add'
-            onSubmit={e => onSubmit(e)} >
-            <TextField hintText={placeholder} ref={node => tf = node} />
-            <RaisedButton label='Add' type='submit' style={{marginLeft: '16px'}}/>
-        </form>
-    )
+    handleSubmit = e => {
+        console.log(this.state.value)
+        e.preventDefault()
+        if (!this.state.value) return
+        this.props.onItemAdd(this.state.value)
+        this.setState({value: ''})
+    }
+
+    handleChange = e => {
+        this.setState({value: e.target.value})
+    }
+
+    render() {
+        return (
+            <form
+                className='Add'
+                onSubmit={this.handleSubmit} >
+                <TextField hintText={this.props.placeholder} value={this.state.value} onChange={this.handleChange}/>
+                <RaisedButton label='Add' type='submit' style={{marginLeft: '16px'}}/>
+            </form>
+        )
+    }
 }

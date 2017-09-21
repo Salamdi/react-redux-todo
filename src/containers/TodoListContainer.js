@@ -15,9 +15,7 @@ const matchStateToProps = (state, ownProps) => ({
             state.filter.query
         ),
         state.filter.showDone
-    ) /* state.filter.showDone
-        ? getCategoryTodos(state.categories, parseInt(ownProps.match.params.catId, 10)).filter(todo => todo.completed)
-        : getCategoryTodos(state.categories, parseInt(ownProps.match.params.catId, 10)) */
+    )
 })
 
 const matchDispatchToProps = (dispatch, ownProps) => ({

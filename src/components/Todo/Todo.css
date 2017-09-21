@@ -1,0 +1,29 @@
+.Todo {
+    min-height: 64px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(224,224,224,1);
+    border-bottom: 1px solid rgba(224,224,224,1);
+    border-left: 1px solid rgba(224,224,224,1);
+}
+
+.Todo_top {
+    border-top: 1px solid rgba(224,224,224,1);
+}
+
+.Todo__content {
+    flex: 1;
+    text-align: left;
+    margin: 0 16px;
+}
+
+.Todo__edit-btn {
+    margin: 8px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.Todo__checkbox {
+    margin: 8px;
+}

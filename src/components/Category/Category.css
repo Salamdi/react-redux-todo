@@ -1,0 +1,45 @@
+.Category {
+    position: relative;
+    align-content: center
+}
+
+.Category__self {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(224,224,224,1);
+    border-radius: 4px;
+    position: relative;
+    padding-left: 32px;
+}
+
+.Category__name {
+    flex: 1;
+    margin: 0;
+}
+
+.Category__Link {
+    vertical-align: super;
+}
+
+.Category__Link_active {
+    color: black;
+    cursor: default;
+}
+
+.Category__btn {
+    height: 32px;
+    border-radius: 4px;
+    width: 32px;
+    margin: 2px 8px;
+}
+
+.Category__edit-btn {
+    width: 40px;
+}
+
+.Category__toggle-btn {
+    position: absolute;
+    left: -4px;
+    width: auto;
+    z-index: 1;
+}

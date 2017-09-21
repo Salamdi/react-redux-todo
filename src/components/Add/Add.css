@@ -1,0 +1,20 @@
+.Add__input {
+    height: 32px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid rgba(0,0,0,0.56);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.Add__btn {
+    height: 32px;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    width: 64px;
+}
+
+.Add__btn:hover {
+    border-left: none;
+}

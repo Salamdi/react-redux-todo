@@ -1,0 +1,21 @@
+.App {
+    margin: 0 auto;
+    height: 100%;
+}
+
+.main {
+    display: flex;
+}
+
+.app-container_left {
+    flex: 1;
+}
+
+.app-container_right {
+    flex: 3;
+}
+
+.container {
+    width: 75%;
+    margin: 0 auto;
+}

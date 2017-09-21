@@ -1,0 +1,39 @@
+.EditTodo {
+    flex: 3;
+    margin-left: 24px;
+    height: 100%;
+    overflow: auto;
+}
+
+.EditTodoRow {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.EditTodoRow_content-pos-left {
+    justify-content: flex-end;
+}
+
+.EditTodo__title-input {
+    height: 32px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.56);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.EditTodo__btn {
+    height: 32px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.EditTodo__text {
+    margin-top: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 60%;
+    resize: none;
+}

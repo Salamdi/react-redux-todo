@@ -1,6 +1,6 @@
 import React from 'react'
 import './Category.css'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CategoriesTree } from '../CategoriesTree'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
@@ -21,48 +21,56 @@ export const Category = ({
     handleAddSubcategory,
     handleEditDialogOpen,
     handleEditCategory,
-    onCategorySelect
-}) => (
-    <div className='Category' >
-        {
-            chldrn
-                ?
-                    <div className='Category__toggle-btn' >
-                        <IconButton onClick={() => onToggle(id)} tooltip='Toggle category' >
-                            {toggled ? <HardwareKeyboardArrowUp /> : <HardwareKeyboardArrowDown />}
-                        </IconButton>
-                    </div>
-                :
-                    null
-        }
-        <div className='Category__self' >
-            <p className='Category__name' >
-                <NavLink to={ `/todos/${id}` } activeClassName='Category__Link_active' className='Category__Link' onClick={() => onCategorySelect(id)} >
-                    { category }
-                </NavLink>
-                <IconButton tooltip={`edit ${category}`} onClick={handleEditDialogOpen} >
-                    <EditorModeEdit />
-                </IconButton>                    
-            </p>
-            <IconButton tooltip={`remove ${category}`} onClick={handleDeleteDialogOpen}>
-                <ActionDelete />
-            </IconButton>
-            <IconButton tooltip={`add subcategory to ${category}`} onClick={handleAddDialogOpen}>
-                <ContentAdd />
-            </IconButton>
+    onCategorySelect,
+    selected,
+}) => {
+
+    return (
+        <div className='Category' >
+            {
+                chldrn
+                    ?
+                        <div className='Category__toggle-btn' >
+                            <IconButton onClick={() => onToggle(id)} tooltip='Toggle category' >
+                                {toggled ? <HardwareKeyboardArrowUp /> : <HardwareKeyboardArrowDown />}
+                            </IconButton>
+                        </div>
+                    :
+                        null
+            }
+            <div className='Category__self' >
+                <p className='Category__name' >
+                    <Link
+                        to={`/category/${id}`}
+                        className={selected ? 'Category__Link Category__Link_active' : 'Category__Link'}
+                        onClick={() => onCategorySelect(id)}
+                    >
+                        { category }
+                    </Link>
+                    <IconButton tooltip={`edit ${category}`} onClick={handleEditDialogOpen} >
+                        <EditorModeEdit />
+                    </IconButton>                    
+                </p>
+                <IconButton tooltip={`remove ${category}`} onClick={handleDeleteDialogOpen}>
+                    <ActionDelete />
+                </IconButton>
+                <IconButton tooltip={`add subcategory to ${category}`} onClick={handleAddDialogOpen}>
+                    <ContentAdd />
+                </IconButton>
+            </div>
+            {
+                chldrn && toggled
+                    ? <CategoriesTree
+                        tree={chldrn}
+                        inner
+                        onToggle={onToggle}
+                        handleDeleteCategory={handleDeleteCategory}
+                        handleAddSubcategory={handleAddSubcategory}
+                        handleEditCategory={handleEditCategory}
+                        onCategorySelect={onCategorySelect}
+                    />
+                    : null
+            }
         </div>
-        {
-            chldrn && toggled
-                ? <CategoriesTree
-                    tree={chldrn}
-                    inner
-                    onToggle={onToggle}
-                    handleDeleteCategory={handleDeleteCategory}
-                    handleAddSubcategory={handleAddSubcategory}
-                    handleEditCategory={handleEditCategory}
-                    onCategorySelect={onCategorySelect}
-                />
-                : null
-        }
-    </div>
-)
+    )
+}

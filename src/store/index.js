@@ -1,7 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { todoApp } from './reducers'
 import thunkMiddleware from 'redux-thunk'
-export const state = window.state = {
+import throttle from 'lodash/throttle'
+import { saveState, loadState } from './localStorage'
+
+/* export const state = {
     filter: {
         showDone: false,
         query: ''
@@ -222,9 +225,11 @@ export const state = window.state = {
             ]
         }
     ]
-}
+} */
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 composeEnhancers(applyMiddleware(thunkMiddleware))
-const store = window.store = createStore(todoApp, state, composeEnhancers(applyMiddleware(thunkMiddleware)))
+const store = createStore(todoApp, loadState(), composeEnhancers(applyMiddleware(thunkMiddleware)))
+store.subscribe(throttle(() => saveState({categories: store.getState().categories}), 1000))
 
 export default store

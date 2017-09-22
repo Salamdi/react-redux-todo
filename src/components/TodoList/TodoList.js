@@ -14,7 +14,13 @@ export class TodoList extends Component {
                 <div className='TodoList' >
                     { this.props.todos.map(
                         (todo, index) =>
-                        <Todo top={ index === 0 } key={ todo.id } {...todo} onToggleTodo={() => this.props.onToggleTodo(todo.id)} />
+                        <Todo
+                            top={ index === 0 }
+                            key={ todo.id }
+                            {...todo}
+                            onToggleTodo={() => this.props.onToggleTodo(todo.id)}
+                            url={this.props.url}
+                        />
                     ) }
                 </div>
             )

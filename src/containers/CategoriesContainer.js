@@ -9,7 +9,9 @@ import {
 } from '../store/actions'
 
 const matchStateToProps = state => ({
-    tree: getTree(state.categories)
+    tree: getTree(state.categories),
+    showDone: state.filter.showDone,
+    query: state.filter.query
 })
 
 const matchDispatchToProps = dispatch => ({

@@ -1,16 +1,16 @@
 .EditTodo {
     flex: 3;
     margin-left: 24px;
-    height: 100%;
-    overflow: auto;
 }
 
 .EditTodoRow {
     display: flex;
     margin-bottom: 8px;
+    justify-content: space-between;
 }
 
-.EditTodoRow_content-pos-left {
+.EditTodoRow__content_pos-left {
+    display: flex;
     justify-content: flex-end;
 }
 
@@ -34,6 +34,5 @@
     margin-top: 8px;
     width: 100%;
     box-sizing: border-box;
-    height: 60%;
     resize: none;
 }

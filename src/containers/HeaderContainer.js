@@ -17,7 +17,8 @@ const matchDispatchToProps = dispatch => ({
     onCategoryAdd: newCategoryTitle => dispatch(addCategory(null /* no parent */, newCategoryTitle)),
     onTodoAdd: newTodoTitle => dispatch(addTodo(newTodoTitle)),
     onToggleFilter: isChecked => dispatch(toggleFilter(isChecked)),
-    onQuery: query => dispatch(searchTodo(query))
+    onQuery: query => dispatch(searchTodo(query)),
+    clearSearch: () => dispatch(searchTodo(''))
 })
 
 const calcProgress = categories => {

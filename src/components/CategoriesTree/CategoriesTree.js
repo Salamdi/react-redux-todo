@@ -58,16 +58,10 @@ export class CategoriesTree extends Component {
                     cat => <Category
                                 key={ cat.id }
                                 { ...cat }
-                                onDeleteCategory={this.props.onDeleteCategory}
-                                onAddSubcategory={this.props.onAddSubcategory}
-                                onToggle={this.props.onToggle}
-                                handleDeleteCategory={this.props.handleDeleteCategory}
-                                handleAddSubcategory={this.props.handleAddSubcategory}
-                                handleEditCategory={this.props.handleEditCategory}
+                                {...this.props}
                                 handleDeleteDialogOpen={() => this.handleDeleteDialogOpen(cat.id)}
                                 handleAddDialogOpen={() => this.handleAddDialogOpen(cat.id)}
                                 handleEditDialogOpen={() => this.handleEditDialogOpen(cat.id, cat.category)}
-                                onCategorySelect={this.props.onCategorySelect}
                             />
                 ) }
             </div>

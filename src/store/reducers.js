@@ -8,8 +8,10 @@ import {
     TOGGLE_FILTER,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
-    SEARCH_TODO
+    SEARCH_TODO,
+    EDIT_TODO
 } from './actions'
+import { v4 } from 'node-uuid'
 
 const categories = ( state = [], action ) => {
     switch ( action.type ) {
@@ -24,7 +26,7 @@ const categories = ( state = [], action ) => {
                 ...state,
                 {
                     category: action.title,
-                    id: state.length,
+                    id: v4(),
                     parentId: action.parentId,
                     todos: []
                 }
@@ -35,6 +37,8 @@ const categories = ( state = [], action ) => {
             return filterCategories(state, action.id)
         case EDIT_CATEGORY:
             return state.map(cat => cat.id === action.id ? {...cat, category: action.title} : cat)
+        case EDIT_TODO:
+            return state.map(cat => cat.id === action.catId ? {...cat, todos: todos(cat.todos, action)} : cat)
         default:
             return state
     }
@@ -60,14 +64,16 @@ const todos = (state = [], action) => {
             return [
                 ...state,
                 {
-                    id: Math.random(),
+                    id: v4(),
                     title: action.title,
                     text: '',
                     completed: false
                 }
             ]
         case TOGGLE_FILTER:
-         return action.isChecked ? state.filter(todo => todo.completed) : state
+            return action.isChecked ? state.filter(todo => todo.completed) : state
+        case EDIT_TODO:
+            return state.map(todo => todo.id === action.newTodo.id ? action.newTodo : todo)
         default:
             return state
     }

@@ -10,7 +10,6 @@ export class Add extends Component {
     }
 
     handleSubmit = e => {
-        console.log(this.state.value)
         e.preventDefault()
         if (!this.state.value) return
         this.props.onItemAdd(this.state.value)

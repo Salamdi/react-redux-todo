@@ -5,7 +5,7 @@ import { Add } from '../Add'
 import AppBar from 'material-ui/AppBar'
 import LinearProgress from 'material-ui/LinearProgress'
 
-export const Header = ({progress, onCategoryAdd, onTodoAdd, location, onToggleFilter, filter, onQuery}) => {
+export const Header = ({progress, onCategoryAdd, onTodoAdd, location, onToggleFilter, filter, onQuery, clearSearch}) => {
     return (
         <header className='Header' >
             <AppBar title='To-Do List' showMenuIconButton={false} />
@@ -13,7 +13,7 @@ export const Header = ({progress, onCategoryAdd, onTodoAdd, location, onToggleFi
                 {
                     location.pathname !== '/'
                         ?<div >
-                            <Filter onToggleFilter={onToggleFilter} filter={filter} onQuery={onQuery}/>
+                            <Filter onToggleFilter={onToggleFilter} filter={filter} onQuery={onQuery} clearSearch={clearSearch} />
                             <br />
                             <LinearProgress mode='determinate' value={progress} style={{height: '16px', borderRadius: '4px'}}/>
                             <br />

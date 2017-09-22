@@ -58,6 +58,14 @@ export const addTodo = title => ({
     title
 })
 
+export const EDIT_TODO = 'EDIT_TODO'
+
+export const editTodo = (catId, newTodo) => ({
+    type: EDIT_TODO,
+    catId,
+    newTodo
+})
+
 /* TODOS */
 
 /* FILTER */

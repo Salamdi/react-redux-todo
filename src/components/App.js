@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import HeaderContainer from '../containers/HeaderContainer'
-// import { EditTodo } from './EditTodo'
+import EditTodo from '../containers/EditTodo/EditTodo'
 import { Route } from 'react-router-dom'
 import CategoriesContainer from '../containers/CategoriesContainer'
 import TodoListContainer from '../containers/TodoListContainer'
@@ -19,9 +19,9 @@ class App extends Component {
               <Route path='/' component={CategoriesContainer} />
             </div>
             <div className="app-container app-container_right">
-              <Route path='/todos/:catId' component={ TodoListContainer } />
+              <Route exact path='/category/:catId' component={ TodoListContainer } />
+              <Route path='/category/:catId/todo/:todoId' component={ EditTodo } someProp='someProp' />
             </div>
-            {/* <EditTodo {...todos[2]} /> */}
           </main>
         </div>
       </MuiThemeProvider>

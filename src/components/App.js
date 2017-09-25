@@ -10,6 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 class App extends Component {
   render() {
+    console.log(this.props)
     return (
       <MuiThemeProvider >
         <div className="App">

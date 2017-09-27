@@ -228,8 +228,13 @@ import { saveState, loadState } from './localStorage'
 } */
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-composeEnhancers(applyMiddleware(thunkMiddleware))
-const store = createStore(todoApp, loadState(), composeEnhancers(applyMiddleware(thunkMiddleware)))
+
+const store = createStore(
+    todoApp,
+    loadState(),
+    composeEnhancers(applyMiddleware(thunkMiddleware))
+)
+
 store.subscribe(throttle(() => saveState({categories: store.getState().categories.map(cat => ({...cat, selected: false}))}), 1000))
 
 export default store

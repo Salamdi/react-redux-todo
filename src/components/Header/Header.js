@@ -3,27 +3,50 @@ import './Header.css'
 import { Filter } from '../Filter'
 import { Add } from '../Add'
 import AppBar from 'material-ui/AppBar'
-import LinearProgress from 'material-ui/LinearProgress'
+import ProgressContainer from '../../containers/ProgressContainer'
 
-export const Header = ({progress, onCategoryAdd, onTodoAdd, location, onToggleFilter, filter, onQuery, clearSearch, history}) => {
+export const Header = ({
+    onCategoryAdd,
+    onTodoAdd,
+    location,
+    onToggleFilter,
+    filter,
+    onQuery,
+    clearSearch,
+    history,
+    match
+}) => {
+    console.log(match)
     return (
         <header className='Header' >
             <AppBar title='To-Do List' showMenuIconButton={false} />
             <div className='container'>
                 {
-                    location.pathname !== '/'
-                        ?<div >
-                            <Filter onToggleFilter={onToggleFilter} filter={filter} onQuery={onQuery} clearSearch={clearSearch} />
+                    match.params.catId && !match.params.todoId
+                        ? <div >
+                            <Filter 
+                                onToggleFilter={onToggleFilter}
+                                filter={filter}
+                                onQuery={onQuery}
+                                clearSearch={clearSearch}
+                                history={history}
+                                location={location}
+                                match={match}
+                            />
                             <br />
-                            <LinearProgress mode='determinate' value={progress} style={{height: '16px', borderRadius: '4px'}}/>
+                            <ProgressContainer catId={match.params.catId} />
                             <br />
                         </div>
                         : null
                 }
                 <div className='HeaderRow' >
-                    <Add placeholder='Enter category title' onItemAdd={onCategoryAdd} />
                     {
-                        location.pathname !== '/'
+                        match.isExact && !match.params.todoId
+                            ? <Add placeholder='Enter category title' onItemAdd={onCategoryAdd} />
+                            : null
+                    }
+                    {
+                        match.params.catId && !match.params.todoId
                             ? <Add placeholder='Enter todo title' onItemAdd={onTodoAdd} />
                             : null
                     }
@@ -32,3 +55,5 @@ export const Header = ({progress, onCategoryAdd, onTodoAdd, location, onToggleFi
         </header>
     )
 }
+
+// match.params.catId && !match.params.todoId

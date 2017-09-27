@@ -21,10 +21,8 @@ export const Category = ({
     handleAddSubcategory,
     handleEditDialogOpen,
     handleEditCategory,
-    onCategorySelect,
-    selected,
+    match
 }) => {
-
     return (
         <div className='Category' >
             {
@@ -41,9 +39,8 @@ export const Category = ({
             <div className='Category__self' >
                 <p className='Category__name' >
                     <Link
-                        to={`/category/${id}`}
-                        className={selected ? 'Category__Link Category__Link_active' : 'Category__Link'}
-                        onClick={() => onCategorySelect(id)}
+                        to={`/${id}`}
+                        style={match.params.catId === id ? {color: 'black', textdecoration: 'none', fontWeight: 'bold', verticalAlign: 'super'} : {verticalAlign: 'super'}}
                     >
                         { category }
                     </Link>
@@ -67,7 +64,7 @@ export const Category = ({
                         handleDeleteCategory={handleDeleteCategory}
                         handleAddSubcategory={handleAddSubcategory}
                         handleEditCategory={handleEditCategory}
-                        onCategorySelect={onCategorySelect}
+                        match={match}
                     />
                     : null
             }

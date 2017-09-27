@@ -1,24 +1,18 @@
 import { combineReducers } from 'redux'
 import {
     TOGGLE_CATEGORY,
-    SELECT_CATEGORY,
     TOGGLE_TODO,
     ADD_CATEGORY,
     ADD_TODO,
-    TOGGLE_FILTER,
     DELETE_CATEGORY,
     EDIT_CATEGORY,
-    SEARCH_TODO,
     EDIT_TODO
 } from './actions'
-import { v4 } from 'node-uuid'
 
 const categories = ( state = [], action ) => {
     switch ( action.type ) {
         case TOGGLE_CATEGORY:
             return state.map(cat => cat.id === action.id ? ({...cat, toggled: !cat.toggled}) : cat)
-        case SELECT_CATEGORY:
-            return state.map(cat => cat.id === action.id ? {...cat, selected: true} : {...cat, selected: false})
         case TOGGLE_TODO:
             return state.map(cat => cat.id === action.catId ? {...cat, todos: todos(cat.todos, action)} : cat)
         case ADD_CATEGORY:
@@ -26,13 +20,13 @@ const categories = ( state = [], action ) => {
                 ...state,
                 {
                     category: action.title,
-                    id: v4(),
+                    id: action.id,
                     parentId: action.parentId,
                     todos: []
                 }
             ]
         case ADD_TODO:
-            return state.map(cat => cat.selected ? {...cat, todos: todos(cat.todos, action)} : cat)
+            return state.map(cat => cat.id === action.catId ? {...cat, todos: todos(cat.todos, action)} : cat)
         case DELETE_CATEGORY:
             return filterCategories(state, action.id)
         case EDIT_CATEGORY:
@@ -44,18 +38,6 @@ const categories = ( state = [], action ) => {
     }
 }
 
-const filter = ( state = {showDone: false, query: ''}, action ) => {
-    switch (action.type) {
-        case TOGGLE_FILTER:
-            return {...state, showDone: action.isChecked}
-        case SEARCH_TODO:
-            return {...state, query: action.query}
-        default:
-            return state
-    }
-}
-
-
 const todos = (state = [], action) => {
     switch (action.type) {
         case TOGGLE_TODO:
@@ -64,14 +46,12 @@ const todos = (state = [], action) => {
             return [
                 ...state,
                 {
-                    id: v4(),
+                    id: action.id,
                     title: action.title,
                     text: '',
                     completed: false
                 }
             ]
-        case TOGGLE_FILTER:
-            return action.isChecked ? state.filter(todo => todo.completed) : state
         case EDIT_TODO:
             return state.map(todo => todo.id === action.newTodo.id ? action.newTodo : todo)
         default:
@@ -79,7 +59,7 @@ const todos = (state = [], action) => {
     }
 }
 
-export const todoApp = combineReducers({ categories, filter })
+export const todoApp = combineReducers({ categories })
 
 const isSelf = (cat, delId) => cat.id === delId ? true : false
 

@@ -4,14 +4,11 @@ import {
     toggleCategory,
     deleteCategory,
     addCategory,
-    editCategory,
-    selectCategory
+    editCategory
 } from '../store/actions'
 
 const matchStateToProps = state => ({
     tree: getTree(state.categories),
-    showDone: state.filter.showDone,
-    query: state.filter.query
 })
 
 const matchDispatchToProps = dispatch => ({
@@ -19,7 +16,6 @@ const matchDispatchToProps = dispatch => ({
     handleDeleteCategory: id => dispatch(deleteCategory(id)),
     handleAddSubcategory: (id, title) => dispatch(addCategory(id, title)),
     handleEditCategory: (id, title) => dispatch(editCategory(id, title)),
-    onCategorySelect: (id) => dispatch(selectCategory(id)),
 })
 
 export default connect(matchStateToProps, matchDispatchToProps)(CategoriesTree)

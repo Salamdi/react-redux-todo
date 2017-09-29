@@ -9,7 +9,7 @@ const matchStateToProps = (state, ownProps) => ({
     todos: filterByCompletion(
         filterByQuery(
             getCategoryTodos(
-                state.categories,
+                state.present.categories,
                 ownProps.match.params.catId
             ),
             parse(ownProps.location.search).query

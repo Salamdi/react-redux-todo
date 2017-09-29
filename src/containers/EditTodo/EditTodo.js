@@ -59,7 +59,7 @@ class EditTodo extends Component {
 
 const matchStateToProps = (state, ownProps) => ({
     todo: findTodo(
-        state.categories,
+        state.present.categories,
         ownProps.match.params.catId,
         ownProps.match.params.todoId
     )

@@ -1,8 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { todoApp } from './reducers'
 import thunkMiddleware from 'redux-thunk'
-import throttle from 'lodash/throttle'
 import { saveState, loadState } from './localStorage'
+import {
+    UNDO,
+    REDO,
+    SAVE
+} from './actions'
 
 /* export const state = {
     filter: {
@@ -230,11 +234,70 @@ import { saveState, loadState } from './localStorage'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-    todoApp,
-    loadState(),
+    undoable(todoApp),
+    // loadState(),
     composeEnhancers(applyMiddleware(thunkMiddleware))
 )
 
-store.subscribe(throttle(() => saveState({categories: store.getState().categories.map(cat => ({...cat, selected: false}))}), 1000))
+// store.subscribe(throttle(() => saveState({categories: store.getState().categories.map(cat => ({...cat, selected: false}))}), 1000))
 
 export default store
+
+function undoable(reducer) {
+    // Call the reducer with empty action to populate the initial state
+    const initialState = {
+      past: [],
+      present: reducer(loadState(), {}),
+      future: []
+    }
+  
+    // Return a reducer that handles undo and redo
+    return function (state = initialState, action) {
+      const { past, present, future } = state
+  
+      switch (action.type) {
+        case UNDO:
+          const previous = past[past.length - 1]
+          const newPast = past.slice(0, past.length - 1)
+          return {
+            past: newPast,
+            present: previous,
+            future: [present, ...future]
+          }
+        case REDO:
+          const next = future[0]
+          const newFuture = future.slice(1)
+          return {
+            past: [...past, present],
+            present: next,
+            future: newFuture
+          }
+        case SAVE:
+          saveState(present)
+          return {
+              past: [],
+              present: present,
+              future: []
+          }
+        default:
+          // Delegate handling the action to the passed reducer
+          const newPresent = reducer(present, action)
+          if (present === newPresent) {
+            return state
+          }
+          return {
+            past: [...past, present],
+            present: newPresent,
+            future: []
+          }
+      }
+    }
+  }
+
+  window.addEventListener('beforeunload', event => {
+      if (store.getState().past.length || store.getState().future.length) {
+        const message = 'There are unsaved changes'
+        event.returnValue = message
+        return message
+      }
+  })

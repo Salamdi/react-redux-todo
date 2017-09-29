@@ -4,6 +4,10 @@ import { Filter } from '../Filter'
 import { Add } from '../Add'
 import AppBar from 'material-ui/AppBar'
 import ProgressContainer from '../../containers/ProgressContainer'
+import IconButton from 'material-ui/IconButton'
+import Undo from 'material-ui/svg-icons/content/undo'
+import Redo from 'material-ui/svg-icons/content/redo'
+import Save from 'material-ui/svg-icons/content/save'
 
 export const Header = ({
     onCategoryAdd,
@@ -14,12 +18,33 @@ export const Header = ({
     onQuery,
     clearSearch,
     history,
-    match
+    match,
+    undoDisabled,
+    redoDisabled,
+    undo,
+    redo,
+    save
 }) => {
-    console.log(match)
+    const iconStyle = {color: 'white'}
     return (
         <header className='Header' >
-            <AppBar title='To-Do List' showMenuIconButton={false} />
+            <AppBar
+                title='To-Do List'
+                showMenuIconButton={false}
+                iconElementRight={
+                    <div>
+                        <IconButton iconStyle={iconStyle} disabled={undoDisabled} onClick={undo} >
+                            <Undo />
+                        </IconButton>
+                        <IconButton iconStyle={iconStyle} disabled={redoDisabled} onClick={redo} >
+                            <Redo />
+                        </IconButton>
+                        <IconButton iconStyle={iconStyle} disabled={redoDisabled && undoDisabled} onClick={save} >
+                            <Save />
+                        </IconButton>
+                    </div>
+                }
+            />
             <div className='container'>
                 {
                     match.params.catId && !match.params.todoId

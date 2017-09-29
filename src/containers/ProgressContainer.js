@@ -2,7 +2,7 @@ import LinearProgress from 'material-ui/LinearProgress'
 import { connect } from 'react-redux'
 
 const matchStateToProps = (state, ownProps) => ({
-    value: calcProgress(state.categories.find(cat => cat.id === ownProps.catId)),
+    value: calcProgress(state.present.categories.find(cat => cat.id === ownProps.catId)),
     mode: 'determinate',
     style: {height: '16px', borderRadius: '4px'}
 })

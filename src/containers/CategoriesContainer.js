@@ -8,7 +8,7 @@ import {
 } from '../store/actions'
 
 const matchStateToProps = state => ({
-    tree: getTree(state.categories),
+    tree: getTree(state.present.categories),
 })
 
 const matchDispatchToProps = dispatch => ({

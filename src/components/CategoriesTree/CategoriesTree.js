@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import './CategoriesTree.css'
 import { Category } from '../Category'
 import { CustomDialog } from '../CustomDialog'
-import { DELETE_CATEGORY, ADD_CATEGORY, EDIT_CATEGORY } from '../../store/actions'
+import { DELETE_CATEGORY, ADD_CATEGORY, EDIT_CATEGORY } from '../CustomDialog';
 
 
 export class CategoriesTree extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {open: false}
     }
 
@@ -28,23 +28,23 @@ export class CategoriesTree extends Component {
     }
 
     handleDeleteConfirm() {
-        this.props.handleDeleteCategory(this.state.id)
+        this.props.handleDeleteCategory(this.state.id);
         this.setState({open: false, id: null, title: null, action: null})
     }
 
     handleAddConfirm(title) {
-        this.props.handleAddSubcategory(this.state.id, title)
+        this.props.handleAddSubcategory(this.state.id, title);
         this.setState({open: false, id: null, title: null, action: null})
     }
-    
+
     handleEditConfirm(title) {
-        this.props.handleEditCategory(this.state.id, title)
+        this.props.handleEditCategory(this.state.id, title);
         this.setState({open: false, id: null, title: null, action: null})
     }
 
     render() {
         return (
-            <div className={ this.props.inner ? 'CategoriesTree CategoriesTree_inner' : 'CategoriesTree' } >
+            <div className={this.props.inner ? 'CategoriesTree CategoriesTree_inner' : 'CategoriesTree'}>
                 <CustomDialog
                     open={this.state.open}
                     action={this.state.action}
@@ -54,16 +54,16 @@ export class CategoriesTree extends Component {
                     handleEditConfirm={title => this.handleEditConfirm(title)}
                     title={this.state.title}
                 />
-                { this.props.tree.map(
+                {this.props.tree.map(
                     cat => <Category
-                                key={ cat.id }
-                                { ...cat }
-                                {...this.props}
-                                handleDeleteDialogOpen={() => this.handleDeleteDialogOpen(cat.id)}
-                                handleAddDialogOpen={() => this.handleAddDialogOpen(cat.id)}
-                                handleEditDialogOpen={() => this.handleEditDialogOpen(cat.id, cat.category)}
-                            />
-                ) }
+                        key={cat.id}
+                        {...cat}
+                        {...this.props}
+                        handleDeleteDialogOpen={() => this.props.handleDeleteCategory(cat.id)}
+                        handleAddDialogOpen={() => this.handleAddDialogOpen(cat.id)}
+                        handleEditDialogOpen={() => this.handleEditDialogOpen(cat.id, cat.category)}
+                    />
+                )}
             </div>
         )
     }

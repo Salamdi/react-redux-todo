@@ -1,33 +1,41 @@
 import { connect } from 'react-redux'
 import { CategoriesTree } from '../components/CategoriesTree'
 import {
-    toggleCategory,
     deleteCategory,
     addCategory,
     editCategory
-} from '../store/actions'
+} from '../store/categories'
+import {
+    showSubcategories,
+    hideSubcategories
+} from '../store/toggledCategories'
 
-const matchStateToProps = state => ({
-    tree: getTree(state.present.categories),
-})
+const mapStateToProps = state => ({
+    tree: getTree(state.categories.present, state.toggledCategories),
+});
 
-const matchDispatchToProps = dispatch => ({
-    onToggle: id => dispatch(toggleCategory(id)),
-    handleDeleteCategory: id => dispatch(deleteCategory(id)),
-    handleAddSubcategory: (id, title) => dispatch(addCategory(id, title)),
-    handleEditCategory: (id, title) => dispatch(editCategory(id, title)),
-})
+const mapDispatchToProps = dispatch => ({
+    onShowSubcategories: id => dispatch(showSubcategories({id})),
+    onHideSubcategories: id => dispatch(hideSubcategories({id})),
+    handleDeleteCategory: id => dispatch(deleteCategory({id})),
+    handleAddSubcategory: (id, title) => {
+        dispatch(addCategory({id, title}));
+        dispatch(showSubcategories({id}));
+    },
+    handleEditCategory: (id, title) => dispatch(editCategory({id, title})),
+});
 
-export default connect(matchStateToProps, matchDispatchToProps)(CategoriesTree)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesTree)
 
-const getTree = categories => {
-    let tree = categories.map(cat => Object.assign({}, cat))
+const getTree = (categories, toggledCategories) => {
+    let tree = categories.map(cat => Object.assign({}, cat));
     tree.forEach(cat => {
         if (cat.parentId !== null && cat.parentId !== undefined) {
-            let parent = tree.find(c => c.id === cat.parentId)
-            if (!parent.chldrn) parent.chldrn = []
+            let parent = tree.find(c => c.id === cat.parentId);
+            parent.toggled = toggledCategories[parent.id];
+            if (!parent.chldrn) parent.chldrn = [];
             parent.chldrn.push(cat)
         }
-    })
+    });
     return tree.filter(cat => cat.parentId === null || cat.parentId === undefined)
-}
+};

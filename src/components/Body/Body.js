@@ -3,7 +3,7 @@ import { TodoList } from '../TodoList'
 import EditTodo from '../../containers/EditTodo/EditTodo'
 import { Redirect } from 'react-router-dom'
 
-export const Body = ({match, todos, onToggleTodo, history, location}) => {
+export const Body = ({match, todos, onToggleTodo, history}) => {
     return (
         <div>
             {
@@ -15,4 +15,4 @@ export const Body = ({match, todos, onToggleTodo, history, location}) => {
             }
         </div>
     )
-}
+};

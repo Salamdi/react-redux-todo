@@ -26,7 +26,7 @@ export class Add extends Component {
                 className='Add'
                 onSubmit={this.handleSubmit} >
                 <TextField hintText={this.props.placeholder} value={this.state.value} onChange={this.handleChange}/>
-                <RaisedButton label='Add' type='submit' style={{marginLeft: '16px'}}/>
+                <RaisedButton label='Add' type='submit' style={{marginLeft: '16px'}} disabled={!this.state.value}/>
             </form>
         )
     }

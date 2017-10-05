@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
-import { ADD_CATEGORY, DELETE_CATEGORY, EDIT_CATEGORY } from '../../store/actions'
+import React, { Component } from 'react';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+export const
+    ADD_CATEGORY = 'ADD_CATEGORY',
+    DELETE_CATEGORY = 'DELETE_CATEGORY',
+    EDIT_CATEGORY = 'EDIT_CATEGORY';
 
 export class CustomDialog extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {title: this.props.title}
     }
 
@@ -27,7 +30,7 @@ export class CustomDialog extends Component {
                         disabled={!this.state.title}
                         onClick={() => {this.props.handleAddConfirm(this.state.title); this.setState({title: ''})}}
                     />
-                ]
+                ];
             case DELETE_CATEGORY:
                 return [
                     <FlatButton
@@ -37,10 +40,11 @@ export class CustomDialog extends Component {
                     />,
                     <FlatButton
                         label='Confirm'
+                        autoFocus
                         primary
                         onClick={() => {this.props.handleDeleteConfirm(); this.setState({title: ''})}}
                     />
-                ]
+                ];
             case EDIT_CATEGORY:
                 return [
                     <FlatButton
@@ -55,7 +59,7 @@ export class CustomDialog extends Component {
                         disabled={!this.state.title}
                         onClick={() => {this.props.handleEditConfirm(this.state.title); this.setState({title: ''})}}
                     />
-                ] 
+                ];
             default:
                 return [
                     <FlatButton
@@ -88,13 +92,13 @@ export class CustomDialog extends Component {
                         style={{display: 'block', width: '100%', marginTop: '16px'}}
                     />
                 </form>
-                )
+                );
             case DELETE_CATEGORY:
                 return (
                     <p>
                         Delete this category and all subcategories?
                     </p>
-                )
+                );
             case EDIT_CATEGORY:
                 return (
                 <form onSubmit={
@@ -115,7 +119,7 @@ export class CustomDialog extends Component {
                         style={{display: 'block', width: '100%', marginTop: '16px'}}
                     />
                 </form>
-                )
+                );
             default:
                 return (
                     <p>

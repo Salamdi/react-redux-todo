@@ -4,21 +4,21 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
 import { connect } from 'react-redux'
-import { editTodo } from '../../store/actions'
+import { editTodo } from '../../store/todos'
 
 class EditTodo extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = Object.assign({}, this.props.todo)
     }
 
     handleSave = () => {
-        this.props.dispatch(editTodo(this.props.match.params.catId, this.state))
+        this.props.dispatch(editTodo({catId: this.props.match.params.catId, editedTodo: this.state}));
         this.props.history.goBack()
-    }
+    };
 
     render() {
-        const {goBack} = this.props.history
+        const {goBack} = this.props.history;
         
         return this.props.todo
             ? (
@@ -57,19 +57,19 @@ class EditTodo extends Component {
     }
 }
 
-const matchStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => ({
     todo: findTodo(
-        state.present.categories,
+        state.categories.present,
         ownProps.match.params.catId,
         ownProps.match.params.todoId
     )
-})
+});
 
 const findTodo = (cats, catId, todoId) =>
     cats.find(
         cat => cat.id === catId
     ).todos.find(
         todo => todo.id === todoId
-    )
+    );
 
-export default connect(matchStateToProps)(EditTodo)
+export default connect(mapStateToProps)(EditTodo);

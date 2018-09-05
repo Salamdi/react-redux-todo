@@ -1,2 +1,2 @@
 # react-redux-todo
-[DEMO](salamdi.github.io/react-redux-todo/)
+[DEMO](https://salamdi.github.io/react-redux-todo/)
